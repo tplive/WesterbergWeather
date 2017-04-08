@@ -1,3 +1,5 @@
+package no.westerberg.westerbergweather;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 

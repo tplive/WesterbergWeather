@@ -1,8 +1,10 @@
+package no.westerberg.westerbergweather;
 
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
 import java.util.List;
+
 
 /**
  * Created by eline on 08.04.2017.

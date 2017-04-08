@@ -1,6 +1,9 @@
+package no.westerberg.westerbergweather;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
+
 
 /**
  * Created by Eline Westerberg 08.04.2017.
