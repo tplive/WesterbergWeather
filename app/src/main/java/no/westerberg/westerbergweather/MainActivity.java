@@ -10,11 +10,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
+        new GetWeatherDataFromYr().execute("http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml");
     }
 
-    public WeatherData getWeatherDataFromYr(String searchTerm) {
 
-        final
-    }
 }
