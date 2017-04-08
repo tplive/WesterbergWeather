@@ -4,35 +4,45 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/cityField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/city" />
+    <TextView
+        android:id="@+id/cityField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/city" />
 
-        <TextView
-            android:id="@+id/temperatureField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/temperatur" />
+    <TextView
+        android:id="@+id/temperatureField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/temperatur" />
 
-        <TextView
-            android:id="@+id/weatherIconField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/weathericon" />
+    <TextView
+        android:id="@+id/weatherIconField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:text="@string/weathericon" />
 
-        <TextView
-            android:id="@+id/detailsField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/detaljer" />
+    <TextView
+        android:id="@+id/detailsField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/weatherIconField"
+        android:layout_centerHorizontal="true"
+        android:text="@string/detaljer" />
 
-        <TextView
-            android:id="@+id/updatedField"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/oppdatert" />
+    <TextView
+        android:id="@+id/updatedField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cityField"
+        android:layout_centerHorizontal="true"
+        android:text="@string/oppdatert" />
     </RelativeLayout>
 
 

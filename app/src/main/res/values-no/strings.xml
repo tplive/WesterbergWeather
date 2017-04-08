@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Westerberg Weather</string>
+    <string name="city">by</string>
+    <string name="detaljer">detaljer</string>
+    <string name="locationHeader">lokasjon</string>
+    <string name="oppdatert">oppdatert</string>
+    <string name="temperatur">temperatur</string>
+    <string name="weathericon">værikon</string>
+    <string name="place_not_found">Beklager, finner ingen værdata.</string>
+    <string name="change_city">Bytt by</string>
+</resources>
