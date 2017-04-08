@@ -4,4 +4,9 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="weathericon">WeatherIcon</string>
+    <string name="city">city</string>
+    <string name="detaljer">detaljer</string>
+    <string name="oppdatert">oppdatert</string>
+    <string name="temperatur">temperatur</string>
 </resources>

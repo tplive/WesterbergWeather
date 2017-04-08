@@ -1,13 +1,38 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="layout.WeatherFragment">
-
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context="layout.WeatherFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <TextView
+            android:id="@+id/cityField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/city" />
+
+        <TextView
+            android:id="@+id/temperatureField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temperatur" />
+
+        <TextView
+            android:id="@+id/weatherIconField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/weathericon" />
+
+        <TextView
+            android:id="@+id/detailsField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/detaljer" />
+
+        <TextView
+            android:id="@+id/updatedField"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/oppdatert" />
+    </RelativeLayout>
+
+
