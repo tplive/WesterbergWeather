@@ -27,5 +27,5 @@ public class Time {
     @Element
     Pressure pressure;
 
-    //TODO Getters and setters
+
 }

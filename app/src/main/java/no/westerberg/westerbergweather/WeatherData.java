@@ -10,8 +10,14 @@ import org.simpleframework.xml.Root;
 public class WeatherData {
 
     @Element
-    Forecast forecast;
+    private Forecast forecast;
 
-    //TODO Getters and setters
+    public Forecast getForecast() {
+        return forecast;
+    }
+
+    public void setForecast(Forecast forecast) {
+        this.forecast = forecast;
+    }
 }
 

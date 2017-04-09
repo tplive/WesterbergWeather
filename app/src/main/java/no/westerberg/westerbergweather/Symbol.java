@@ -5,4 +5,5 @@ package no.westerberg.westerbergweather;
  */
 
 public class Symbol {
+
 }
