@@ -7,14 +7,14 @@ import java.util.List;
 
 
 /**
- * Created by eline on 08.04.2017.
+ * Created  by Eline Westerberg on 08.04.2017.
  */
 
 @Root(strict=false)
-public class Forecast {
+class Forecast {
 
-    @ElementList(name = "Tabular")
-    List<Time> timeList;
+    @ElementList(name = "Tabular", required = false)
+    private List<Time> timeList;
 
     public List<Time> getTimeList() {
         return timeList;

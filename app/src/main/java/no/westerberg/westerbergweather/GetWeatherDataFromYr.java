@@ -37,4 +37,11 @@ class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
             return null;
         }
     }
+
+    @Override
+    protected void onPostExecute(WeatherData weatherData) {
+        super.onPostExecute(weatherData);
+        Log.d(TAG, "onPostExecute" + weatherData.toString());
+
+    }
 }
