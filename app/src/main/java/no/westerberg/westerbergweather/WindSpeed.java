@@ -5,4 +5,14 @@ package no.westerberg.westerbergweather;
  */
 
 public class WindSpeed {
+    private double windspeed;
+
+    public double getWindspeed() {
+        return Math.round(windspeed);
+    }
+
+    public void setWindspeed(double windspeed) {
+        this.windspeed = windspeed;
+    }
 }
+

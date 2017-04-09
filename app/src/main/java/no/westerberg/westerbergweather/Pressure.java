@@ -5,4 +5,14 @@ package no.westerberg.westerbergweather;
  */
 
 public class Pressure {
+    private double pressure;
+
+    public double getPressure() {
+        return Math.round(pressure); //XML formatet krever at vi runder av verdien for å vise den.
+    }
+
+    public void setPressure(double pressure) {
+        this.pressure = pressure;
+    }
 }
+

@@ -16,6 +16,12 @@ public class Forecast {
     @ElementList(name = "Tabular")
     List<Time> timeList;
 
-    //TODO getters and setters
+    public List<Time> getTimeList() {
+        return timeList;
+    }
+
+    public void setTimeList(List<Time> timeList) {
+        this.timeList = timeList;
+    }
 }
 
