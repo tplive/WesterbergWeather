@@ -1,14 +1,15 @@
 package no.westerberg.westerbergweather;
 
 /**
- * Created by eline on 08.04.2017.
+ * Created  by Eline Westerberg on 08.04.2017.
  */
 
-public class Temperature {
+class Temperature {
     private double temperature;
 
     public double getTemperature() {
-        return Math.round(temperature);
+        return Math.round(temperature); //XML formatet krever at vi runder av verdien for å vise den.
+
     }
 
     public void setTemperature(double temperature) {

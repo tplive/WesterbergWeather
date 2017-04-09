@@ -10,22 +10,69 @@ import org.simpleframework.xml.Root;
  */
 
 @Root(strict = false)
-public class Time {
+class Time {
 
     @Attribute
-    String from;
+    private String from;
     @Attribute
-    String to;
+    private String to;
     @Element
-    Symbol symbol;
+    private Symbol symbol;
     @Element
-    WindDirection windDirection;
+    private WindDirection windDirection;
     @Element
-    WindSpeed windSpeed;
+    private WindSpeed windSpeed;
     @Element
-    Temperature temperature;
+    private Temperature temperature;
     @Element
-    Pressure pressure;
+    private Pressure pressure;
 
+    public String getFrom() {
+        return from;
+    }
+
+    public void setFrom(String from) {
+        this.from = from;
+    }
+
+    public Symbol getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(Symbol symbol) {
+        this.symbol = symbol;
+    }
+
+    public WindDirection getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(WindDirection windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public WindSpeed getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(WindSpeed windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public Pressure getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(Pressure pressure) {
+        this.pressure = pressure;
+    }
+
+    public Temperature getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(Temperature temperature) {
+        this.temperature = temperature;
+    }
 
 }
