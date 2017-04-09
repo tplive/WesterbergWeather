@@ -1,6 +1,7 @@
 package no.westerberg.westerbergweather;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,13 @@ import org.springframework.web.client.RestTemplate;
 
 class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
 
+    private final static String TAG = "GetWeatherDataFromYr";
     private Exception exception;
 
     @Override
     protected WeatherData doInBackground(String... urls) {
+
+        Log.d(TAG, "Starting doInBackground...");
 
         try {
             String url = "http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml";

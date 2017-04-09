@@ -3,13 +3,16 @@ package no.westerberg.westerbergweather;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import layout.WeatherFragment;
 
 public class MainActivity extends AppCompatActivity implements WeatherFragment.OnFragmentInteractionListener {
 
+    private final static String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d(TAG, "onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -19,12 +22,12 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                     .commit();
         }
 
-
+        Log.d(TAG, "About to execute GetWeatherDataFromYr asyncTask...");
         new GetWeatherDataFromYr().execute("http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml");
     }
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
+        Log.d(TAG, "onFragmentInteraction");
     }
 }
