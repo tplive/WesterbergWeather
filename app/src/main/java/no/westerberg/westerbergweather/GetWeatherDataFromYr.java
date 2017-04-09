@@ -28,7 +28,6 @@ public class GetWeatherDataFromYr extends AsyncTask<String, Void, Object> {
 
             return responseEntity.getBody();
 
-
         } catch (Exception e) {
             e.printStackTrace();
             return null;

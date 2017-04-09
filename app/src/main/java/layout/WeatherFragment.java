@@ -13,14 +13,7 @@ import android.widget.TextView;
 
 import no.westerberg.westerbergweather.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link WeatherFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link WeatherFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class WeatherFragment extends Fragment {
 
     Typeface weatherFont;
@@ -39,6 +32,13 @@ public class WeatherFragment extends Fragment {
     public WeatherFragment() {
 
         handler = new Handler();
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
+
     }
 
     @Override
