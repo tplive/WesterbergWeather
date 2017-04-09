@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         }
 
 
-        //new GetWeatherDataFromYr().execute("http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml");
+        new GetWeatherDataFromYr().execute("http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml");
     }
 
     @Override

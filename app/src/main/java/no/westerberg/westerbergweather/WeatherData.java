@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
  * Created  by Eline Westerberg on 08.04.2017.
  */
 @Root(strict = false)
-public class WeatherData {
+class WeatherData {
 
     @Element
     private Forecast forecast;
@@ -17,6 +17,7 @@ public class WeatherData {
     }
 
     public void setForecast(Forecast forecast) {
+
         this.forecast = forecast;
     }
 }

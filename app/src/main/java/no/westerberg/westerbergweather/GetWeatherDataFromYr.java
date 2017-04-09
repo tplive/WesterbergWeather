@@ -11,12 +11,12 @@ import org.springframework.web.client.RestTemplate;
  * Created  by Thomas Qvidahl on 08.04.2017.
  */
 
-public class GetWeatherDataFromYr extends AsyncTask<String, Void, Object> {
+class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
 
     private Exception exception;
 
     @Override
-    protected Object doInBackground(String... urls) {
+    protected WeatherData doInBackground(String... urls) {
 
         try {
             String url = "http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml";
@@ -32,10 +32,5 @@ public class GetWeatherDataFromYr extends AsyncTask<String, Void, Object> {
             e.printStackTrace();
             return null;
         }
-
-    }
-
-    protected void onPostExecute(Object object) {
-
     }
 }
