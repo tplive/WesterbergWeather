@@ -5,6 +5,7 @@ import org.simpleframework.xml.Root;
 
 /**
  * Created  by Eline Westerberg on 08.04.2017.
+ * Rot-element i XML data fra Yr
  */
 @Root(strict = false)
 class WeatherData {
@@ -24,6 +25,11 @@ class WeatherData {
     public Location getLocation() { return location; }
     public void setLocation(Location location) {
         this.location = location;
+    }
+
+    public Credit getCredit() { return credit; }
+    public void setCredit(Credit credit) {
+        this.credit = credit;
     }
 }
 
