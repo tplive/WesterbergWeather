@@ -11,14 +11,19 @@ class WeatherData {
 
     @Element
     private Forecast forecast;
+    @Element
+    private Location location;
+    @Element
+    private Credit credit;
 
-    public Forecast getForecast() {
-        return forecast;
+    public Forecast getForecast() { return forecast; }
+    public void setForecast(Forecast forecast) {
+        this.forecast = forecast;
     }
 
-    public void setForecast(Forecast forecast) {
-
-        this.forecast = forecast;
+    public Location getLocation() { return location; }
+    public void setLocation(Location location) {
+        this.location = location;
     }
 }
 

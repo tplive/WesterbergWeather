@@ -16,6 +16,8 @@ class Time {
     private String from;
     @Attribute
     private String to;
+    @Attribute
+    private int period;
     @Element
     private Symbol symbol;
     @Element
@@ -27,18 +29,17 @@ class Time {
     @Element
     private Pressure pressure;
 
-    public String getFrom() {
-        return from;
-    }
-
+    public String getFrom() { return from;   }
     public void setFrom(String from) {
         this.from = from;
     }
 
+    public String getTo() { return to; }
+    public void setTo(String to) { this.to = to; }
+
     public Symbol getSymbol() {
         return symbol;
     }
-
     public void setSymbol(Symbol symbol) {
         this.symbol = symbol;
     }
@@ -46,7 +47,6 @@ class Time {
     public WindDirection getWindDirection() {
         return windDirection;
     }
-
     public void setWindDirection(WindDirection windDirection) {
         this.windDirection = windDirection;
     }
@@ -54,7 +54,6 @@ class Time {
     public WindSpeed getWindSpeed() {
         return windSpeed;
     }
-
     public void setWindSpeed(WindSpeed windSpeed) {
         this.windSpeed = windSpeed;
     }
@@ -62,7 +61,6 @@ class Time {
     public Pressure getPressure() {
         return pressure;
     }
-
     public void setPressure(Pressure pressure) {
         this.pressure = pressure;
     }
@@ -70,7 +68,6 @@ class Time {
     public Temperature getTemperature() {
         return temperature;
     }
-
     public void setTemperature(Temperature temperature) {
         this.temperature = temperature;
     }
