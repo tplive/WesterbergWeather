@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context="no.westerberg.westerbergweather.MainActivity">
 
+    <EditText
+        android:id="@+id/editText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
     <TextView
         android:id="@+id/locationHeader"
         android:layout_width="wrap_content"
@@ -14,7 +22,8 @@
         android:text="@string/locationHeader"
         android:textSize="30sp"
         tools:layout_editor_absoluteX="16dp"
-        tools:layout_editor_absoluteY="16dp" />
+        tools:layout_editor_absoluteY="16dp"
+        tools:text="Mo i Rana" />
 
     <LinearLayout
         android:id="@+id/currentWeatherFragment"

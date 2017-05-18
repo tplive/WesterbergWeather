@@ -1,4 +1,4 @@
-package layout;
+package no.westerberg.westerbergweather;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,7 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import no.westerberg.westerbergweather.CityPreference;
 import no.westerberg.westerbergweather.R;
 
 
@@ -38,7 +42,27 @@ public class WeatherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
+        updateWeatherData(new CityPreference(getActivity()).getCity());
 
+    }
+
+    private void updateWeatherData(final String city) {
+
+        new Thread(){
+            public void run() {
+                final JSONObject json = RemoteFetch.getJSON(getActivity(), city);
+                if (json == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),
+                                    getActivity().getString(R.string.place_not_found),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+                }
+            }
+        }.start();
     }
 
     @Override
