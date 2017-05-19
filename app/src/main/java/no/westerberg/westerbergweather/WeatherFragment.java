@@ -139,6 +139,10 @@ public class WeatherFragment extends Fragment {
         weatherIcon.setText(icon);
     }
 
+    public void changeCity(String city) {
+        updateWeatherData(city);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
