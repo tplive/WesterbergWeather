@@ -9,5 +9,7 @@
     <string name="weathericon">værikon</string>
     <string name="place_not_found">Beklager, finner ingen værdata.</string>
     <string name="change_city">Bytt by</string>
-    <string name="search">search</string>
+    <string name="search">søk</string>
+    <string name="search_icon">Søkeikon</string>
+    <string name="searchText">Søk</string>
 </resources>
