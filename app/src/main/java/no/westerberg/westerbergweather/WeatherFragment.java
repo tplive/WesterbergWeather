@@ -47,12 +47,13 @@ public class WeatherFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
+
         updateWeatherData(new CityPreference(getActivity()).getCity());
 
     }
 
     private void updateWeatherData(final String city) {
-
+        //TODO: Make updateWeatherData get data from Yr.
         new Thread(){
             public void run() {
                 final JSONObject json = RemoteFetch.getJSON(getActivity(), city);
@@ -75,10 +76,11 @@ public class WeatherFragment extends Fragment {
                 }
             }
         }.start();
+
     }
 
     private void renderWeather(JSONObject json) {
-
+        //TODO: Need another method to render weather from Yr. Or class to convert to JSON
         try{
             cityField.setText(json.getString("name").toUpperCase(Locale.US) +
             ", " + json.getJSONObject("sys").getString("country"));

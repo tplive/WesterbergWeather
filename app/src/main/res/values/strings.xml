@@ -22,5 +22,6 @@
 
     <string name="place_not_found">Sorry, no weather data found.</string>
     <string name="open_weather_maps_app_id">4c0df1620321fd8c9ed04872b26378ad</string>
+    <string name="search">search</string>
 
 </resources>

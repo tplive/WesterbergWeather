@@ -4,6 +4,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
 
 // Lots of code from here: https://code.tutsplus.com/tutorials/create-a-weather-app-on-android--cms-21587
 
@@ -22,8 +23,6 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                     .commit();
         }
 
-        Log.d(TAG, "About to execute GetWeatherDataFromYr asyncTask...");
-        new GetWeatherDataFromYr().execute("http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml");
 
     }
 
@@ -31,4 +30,9 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     public void onFragmentInteraction(Uri uri) {
         Log.d(TAG, "onFragmentInteraction");
     }
+
+
+
 }
+
+
