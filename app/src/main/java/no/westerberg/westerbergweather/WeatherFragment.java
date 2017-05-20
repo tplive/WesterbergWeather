@@ -82,13 +82,13 @@ public class WeatherFragment extends Fragment {
     private void renderWeather(JSONObject json) {
         //TODO: Need another method to render weather from Yr. Or class to convert to JSON
         try{
-            cityField.setText(json.getString("name").toUpperCase(Locale.US) +
+            cityField.setText(json.getString("name").toUpperCase(Locale.getDefault()) +
             ", " + json.getJSONObject("sys").getString("country"));
 
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
             JSONObject main = json.getJSONObject("main");
             detailsField.setText(
-                    details.getString("description").toUpperCase(Locale.US) +
+                    details.getString("description").toUpperCase(Locale.getDefault()) +
                             "\n" + "Humidity: " + main.getString("humidity") + "%" +
                             "\n" + "Pressure: " + main.getString("pressure") + "hPa"
             );

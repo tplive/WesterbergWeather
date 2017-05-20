@@ -19,7 +19,7 @@ public class CityPreference {
     // Hvis brukeren ikke har valgt by enda, sett standard
     // til Trondheim
     String getCity() {
-        return prefs.getString("city", "Brønnøysund, NO");
+        return prefs.getString("city", "Trondheim, NO");
     }
 
     void setCity(String city) {

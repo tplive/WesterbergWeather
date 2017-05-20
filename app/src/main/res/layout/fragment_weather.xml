@@ -56,8 +56,12 @@
         tools:layout_conversion_absoluteWidth="138dp"
         tools:layout_conversion_absoluteX="123dp"
         tools:layout_conversion_absoluteY="28dp"
-        tools:layout_editor_absoluteX="123dp"
-        tools:text="for få minutter siden..." />
+        tools:text="for få minutter siden..."
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/cityField"
