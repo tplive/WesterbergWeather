@@ -23,12 +23,12 @@ class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
         Log.d(TAG, "Starting doInBackground...");
 
         try {
-            String url = "http://www.yr.no/sted/Norge/Nordland/Rana/Mo/varsel.xml";
+
 
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.getMessageConverters().add(new SimpleXmlHttpMessageConverter());
 
-            ResponseEntity<WeatherData> responseEntity = restTemplate.exchange(url, HttpMethod.GET, null, WeatherData.class);
+            ResponseEntity<WeatherData> responseEntity = restTemplate.exchange(urls[0], HttpMethod.GET, null, WeatherData.class);
 
             if(responseEntity.getBody() != null) {
                 return responseEntity.getBody();

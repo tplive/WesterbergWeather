@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.nlopez.smartlocation.OnLocationUpdatedListener;
+import io.nlopez.smartlocation.OnReverseGeocodingListener;
 import io.nlopez.smartlocation.SmartLocation;
 
 // Lots of code from here: https://code.tutsplus.com/tutorials/create-a-weather-app-on-android--cms-21587
@@ -27,9 +28,6 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     EditText searchBox;
     ImageButton searchBtn;
-
-    // Location
-    private static final int MY_PERMISSIONS_REQUEST_FOR_LOCATION = 1;
 
 
     private final static String TAG = "MainActivity";
@@ -45,24 +43,22 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                     .commit();
         }
 
-        // Location
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        SmartLocation.with(this).location().start(new OnLocationUpdatedListener() {
+            @Override
+            public void onLocationUpdated(Location location) {
 
-            // Show explanation
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-                Log.v("Location", "Show explanation");
-            }else{
+                double lat = location.getLatitude();
+                double lon = location.getLongitude();
 
-                // No explanation needed so we can request the permission
+                Log.v("Location", "Position: " + lat + lon );
 
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                        MY_PERMISSIONS_REQUEST_FOR_LOCATION);
+                getAddressFromLocation(lat, lon);
+
+
+
             }
-        }else {
+        });
 
-            findLocation();
-        }
         searchBox = (EditText)findViewById(R.id.searchBox);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
 
@@ -80,30 +76,29 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     private String getAddressFromLocation(double lat, double lon) {
 
-        String strAdd = "";
-        Geocoder gcd = new Geocoder(MainActivity.this, Locale.getDefault());
-        try {
+        String strAddress = "";
 
-            List<Address> addresses = gcd.getFromLocation(lat, lon, 1);
-            if (addresses.size() < 0) {
-
-                strAdd = addresses.get(0).getAddressLine(0);
-            }
-        }catch (Exception e) {
-            Log.v("Location", "Geocoder crash");
-        }
-
-        return strAdd;
-    }
-
-    private void findLocation() {
         SmartLocation.with(this).location().start(new OnLocationUpdatedListener() {
             @Override
             public void onLocationUpdated(Location location) {
-                double lat = location.getLatitude();
-                double lon = location.getLongitude();
 
-                getAddressFromLocation(lat, lon);
+                SmartLocation.with(MainActivity.this).geocoding()
+                        .reverse(location, new OnReverseGeocodingListener() {
+                            @Override
+                            public void onAddressResolved(Location location, List<Address> list) {
+
+                                if (list.size() < 0) {
+
+                                    final String address = list.get(0).getAddressLine(0);
+                                    final String city = list.get(0).getLocality();
+                                    final String state = list.get(0).getAdminArea();
+                                    final String country = list.get(0).getCountryName();
+                                    final String postalCode = list.get(0).getPostalCode();
+                                    Log.d("Location", address + city + state + country + postalCode);
+                                    //strAddress = address + city + state + country + postalCode;
+                                }
+                            }
+                        });
 
             }
         });

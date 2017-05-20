@@ -79,6 +79,7 @@ public class WeatherFragment extends Fragment {
 
     }
 
+
     private void renderWeather(JSONObject json) {
         //TODO: Need another method to render weather from Yr. Or class to convert to JSON
         try{
