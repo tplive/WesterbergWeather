@@ -7,6 +7,7 @@ import android.location.*;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -14,21 +15,37 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-import io.nlopez.smartlocation.OnLocationUpdatedListener;
-import io.nlopez.smartlocation.OnReverseGeocodingListener;
-import io.nlopez.smartlocation.SmartLocation;
 
-// Lots of code from here: https://code.tutsplus.com/tutorials/create-a-weather-app-on-android--cms-21587
 
 public class MainActivity extends AppCompatActivity implements WeatherFragment.OnFragmentInteractionListener {
 
     EditText searchBox;
     ImageButton searchBtn;
 
+    LocationManager mLocationManager;
+    LocationListener mLocationListener;
+    String currentCity = "Unknown city";
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (requestCode == 1) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+
+                    mLocationManager.requestLocationUpdates(mLocationManager.GPS_PROVIDER, 0, 0, mLocationListener);
+                }
+            }
+        }
+    }
 
     private final static String TAG = "MainActivity";
     @Override
@@ -43,24 +60,56 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                     .commit();
         }
 
-        SmartLocation.with(this).location().start(new OnLocationUpdatedListener() {
+        mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
+
+        mLocationListener = new LocationListener() {
             @Override
-            public void onLocationUpdated(Location location) {
-
-                double lat = location.getLatitude();
-                double lon = location.getLongitude();
-
-                Log.v("Location", "Position: " + lat + lon );
-
-                getAddressFromLocation(lat, lon);
-
-
+            public void onLocationChanged(Location location) {
 
             }
-        });
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+
+            }
+        };
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+
+            mLocationManager.requestLocationUpdates(mLocationManager.GPS_PROVIDER, 10, 10, mLocationListener);
+
+            // Last known location
+            Location lastKnownLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+
+            // Get address (City) from position
+            currentCity = getAddressFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+
+            Toast.makeText(this, "Current city: " + currentCity, Toast.LENGTH_SHORT).show();
+
+        }
+
+        //TODO Get weather at current position
+        //TODO Add current address to searchbox
 
         searchBox = (EditText)findViewById(R.id.searchBox);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
+
+        searchBox.setText(currentCity);
+        //changeCity(currentCity);
 
         searchBtn.setOnClickListener(
                 new View.OnClickListener() {
@@ -76,32 +125,34 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     private String getAddressFromLocation(double lat, double lon) {
 
-        String strAddress = "";
+        String city = "Unknown city";
 
-        SmartLocation.with(this).location().start(new OnLocationUpdatedListener() {
-            @Override
-            public void onLocationUpdated(Location location) {
+        Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
-                SmartLocation.with(MainActivity.this).geocoding()
-                        .reverse(location, new OnReverseGeocodingListener() {
-                            @Override
-                            public void onAddressResolved(Location location, List<Address> list) {
+        // Vil ha bynavn fra Locality. Men Locality returnerer ofte "null". Derfor henter vi 10 resultater fra posisjonen
+        // Og looper gjennom dem og tar det første som ikke er null.
 
-                                if (list.size() < 0) {
+        try {
+            List<Address> addresses = geocoder.getFromLocation(lat, lon, 10);
 
-                                    final String address = list.get(0).getAddressLine(0);
-                                    final String city = list.get(0).getLocality();
-                                    final String state = list.get(0).getAdminArea();
-                                    final String country = list.get(0).getCountryName();
-                                    final String postalCode = list.get(0).getPostalCode();
-                                    Log.d("Location", address + city + state + country + postalCode);
-                                    //strAddress = address + city + state + country + postalCode;
-                                }
-                            }
-                        });
+            if (addresses != null && addresses.size() > 0) {
+
+                Log.i("Geocoder", addresses.toString());
+
+                for (Address adr : addresses) {
+                    if (adr.getLocality() != null && adr.getLocality().length() > 0 ) {
+                        city = adr.getLocality();
+                    }
+                }
 
             }
-        });
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+
+        return city;
+
     }
 
     @Override

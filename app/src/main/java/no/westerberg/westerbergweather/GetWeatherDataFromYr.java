@@ -31,6 +31,9 @@ class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
             ResponseEntity<WeatherData> responseEntity = restTemplate.exchange(urls[0], HttpMethod.GET, null, WeatherData.class);
 
             if(responseEntity.getBody() != null) {
+
+                Log.i("YrXML", responseEntity.getBody().toString());
+
                 return responseEntity.getBody();
 
             }else {
@@ -46,7 +49,7 @@ class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
     @Override
     protected void onPostExecute(WeatherData weatherData) {
         super.onPostExecute(weatherData);
-        Log.d(TAG, "onPostExecute");
+        //Log.d("YrXML", weatherData.getLocation().getName().toString());
 
     }
 }

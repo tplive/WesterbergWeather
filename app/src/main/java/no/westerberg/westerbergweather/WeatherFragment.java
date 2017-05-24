@@ -49,6 +49,9 @@ public class WeatherFragment extends Fragment {
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
 
         updateWeatherData(new CityPreference(getActivity()).getCity());
+        new GetWeatherDataFromYr().execute("http://www.yr.no/sted/Norge/Telemark/Sauherad/Gvarv/varsel.xml");
+
+
 
     }
 
