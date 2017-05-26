@@ -1,9 +1,12 @@
 package no.westerberg.westerbergweather;
 
+import org.simpleframework.xml.Root;
+
 /**
  * Created by eline on 08.04.2017.
  */
 
+@Root(strict=false)
 public class Pressure {
     private double pressure;
 

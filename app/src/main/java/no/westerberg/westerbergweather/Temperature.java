@@ -1,18 +1,33 @@
 package no.westerberg.westerbergweather;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
+
 /**
  * Created  by Eline Westerberg on 08.04.2017.
  */
-
+@Root(strict=false)
 class Temperature {
-    private double temperature;
 
-    public double getTemperature() {
-        return Math.round(temperature); //XML formatet krever at vi runder av verdien for å vise den.
+    @Attribute
+    String unit;
 
+    @Attribute
+    int value;
+
+    public int getValue() {
+        return value;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setValue(int value) {
+        this.value = value;
     }
 }
