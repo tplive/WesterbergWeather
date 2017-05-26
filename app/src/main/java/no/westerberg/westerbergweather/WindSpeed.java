@@ -1,18 +1,34 @@
 package no.westerberg.westerbergweather;
 
+import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
+
 /**
  * Created  by Eline Westerberg on 08.04.2017.
  */
 
+@Root(strict = false)
 class WindSpeed {
-    private double windspeed;
 
-    public double getWindspeed() {
-        return Math.round(windspeed); //XML formatet krever at vi runder av verdien for å vise den.
+    @Attribute
+    private double mps;
+    @Attribute
+    private String name;
+
+    public double getMps() {
+        return Math.round(mps); //XML formatet krever at vi runder av verdien for å vise den.
     }
 
-    public void setWindspeed(double windspeed) {
-        this.windspeed = windspeed;
+    public String getName() {
+        return name;
+    }
+
+    public void setMps(double mps) {
+        this.mps = mps;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 

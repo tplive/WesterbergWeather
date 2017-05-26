@@ -17,19 +17,30 @@ class WeatherData {
     @Element
     private Credit credit;
 
-    public Forecast getForecast() { return forecast; }
+    public Forecast getForecast() {
+        return forecast;
+    }
+
     public void setForecast(Forecast forecast) {
         this.forecast = forecast;
     }
 
-    public Location getLocation() { return location; }
+    public Location getLocation() {
+        return location;
+    }
+
     public void setLocation(Location location) {
+
         this.location = location;
     }
 
-    public Credit getCredit() { return credit; }
+    public Credit getCredit() {
+        return credit;
+    }
     public void setCredit(Credit credit) {
+
         this.credit = credit;
     }
+
 }
 

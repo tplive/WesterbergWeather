@@ -1,12 +1,14 @@
 package no.westerberg.westerbergweather;
 
 import org.simpleframework.xml.Attribute;
+import org.simpleframework.xml.Root;
 
 /**
  * Created by eline on 08.04.2017.
  */
-
+@Root(strict = false)
 public class WindDirection {
+
     @Attribute
     private double deg;
     @Attribute
@@ -37,4 +39,6 @@ public class WindDirection {
     public String getName() {
         return name;
     }
+
+
 }

@@ -12,22 +12,28 @@ import org.simpleframework.xml.Root;
 @Root(strict = false)
 class Time {
 
-    @Attribute
+    @Attribute(required = false)
     private String from;
-    @Attribute
+    @Attribute(required = false)
     private String to;
-    @Attribute
-    private int period;
-    @Element
+    @Element(required = false)
     private Symbol symbol;
-    @Element
+    @Element(required = false)
     private WindDirection windDirection;
-    @Element
+    @Element(required = false)
     private WindSpeed windSpeed;
-    @Element
+    @Element(required = false)
     private Temperature temperature;
-    @Element
+    @Element(required = false)
     private Pressure pressure;
+    @Element(required = false)
+    String title;
+    @Element(required = false)
+    String body;
+
+    @Attribute(required = false)
+    int period;
+
 
     public String getFrom() { return from;   }
     public void setFrom(String from) {
@@ -70,6 +76,30 @@ class Time {
     }
     public void setTemperature(Temperature temperature) {
         this.temperature = temperature;
+    }
+
+    public int getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(int period) {
+        this.period = period;
+    }
+
+    public String getBody() {
+        return body;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
 }
