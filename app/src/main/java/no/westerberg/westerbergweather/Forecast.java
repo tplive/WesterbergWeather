@@ -3,7 +3,7 @@ package no.westerberg.westerbergweather;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Text;
+
 
 import java.util.List;
 
@@ -14,12 +14,14 @@ import java.util.List;
 
 @Root(strict=false)
 class Forecast {
+    public Forecast() {
+    }
 
     @ElementList(name = "tabular", required = false)
     private List<Time> timeList;
 
-    @Element
-    Text text;
+    @Element(required = false)
+    private Text text;
 
     public List<Time> getTimeList() {
         return timeList;

@@ -12,6 +12,7 @@ import org.simpleframework.xml.Root;
 @Root(strict = false)
 class Time {
 
+
     @Attribute(required = false)
     private String from;
     @Attribute(required = false)

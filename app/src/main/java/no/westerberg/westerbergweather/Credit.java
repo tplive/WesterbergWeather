@@ -12,6 +12,8 @@ import java.net.URL;
  */
 @Root(strict=false)
 public class Credit {
+    public Credit() {
+    }
 
     @Element
     private Link link;

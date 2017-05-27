@@ -19,9 +19,6 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import no.westerberg.westerbergweather.CityPreference;
-import no.westerberg.westerbergweather.R;
-
 
 public class WeatherFragment extends Fragment {
 
@@ -48,8 +45,9 @@ public class WeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
 
-        updateWeatherData(new CityPreference(getActivity()).getCity());
+        //updateWeatherData(new CityPreference(getActivity()).getCity());
 
+        // https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
         new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
 
             @Override
@@ -57,14 +55,14 @@ public class WeatherFragment extends Fragment {
 
                 Location location = output.getLocation();
                 String locString = location.getName();
+
+                renderWeather2(output);
             }
-        });
-
-                //.execute("http://www.yr.no/sted/Norge/Telemark/Sauherad/Gvarv/varsel.xml");
-
+        }).execute("http://www.yr.no/sted/Norge/Telemark/Sauherad/Gvarv/varsel.xml");
 
 
     }
+
 
     private void updateWeatherData(final String city) {
         //TODO: Make updateWeatherData get data from Yr.
@@ -93,6 +91,15 @@ public class WeatherFragment extends Fragment {
 
     }
 
+    private void renderWeather2(WeatherData weather) {
+
+        cityField.setText((CharSequence) weather.getLocation().getLocation().toString().toUpperCase(Locale.getDefault()) +
+                ", " + weather.getLocation().getCountry().toUpperCase(Locale.getDefault()));
+
+        //TODO Will render WeatherData object from Yr in the same way as the OWM version
+
+
+    }
 
     private void renderWeather(JSONObject json) {
         //TODO: Need another method to render weather from Yr. Or class to convert to JSON

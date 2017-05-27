@@ -51,10 +51,10 @@ public class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
     }
 
     @Override
-    protected void onPostExecute(WeatherData weatherData) {
-        super.onPostExecute(weatherData);
+    protected void onPostExecute(WeatherData output) {
+        super.onPostExecute(output);
 
-        delegate.processFinished(weatherData);
+        delegate.processFinished(output);
 
     }
 }

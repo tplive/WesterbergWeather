@@ -8,6 +8,7 @@ import org.simpleframework.xml.Root;
 
 @Root(strict=false)
 public class Pressure {
+
     private double pressure;
 
     public double getPressure() {

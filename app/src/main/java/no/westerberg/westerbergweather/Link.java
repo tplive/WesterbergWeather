@@ -8,6 +8,8 @@ import org.simpleframework.xml.Root;
  */
 @Root(strict=false)
 class Link {
+    public Link() {
+    }
 
     @Attribute
     private String text;
