@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                     .commit();
         }
 
-        new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
+/*        new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
 
             @Override
             public void processFinished(WeatherData output) {
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                 no.westerberg.westerbergweather.Location location = output.getLocation();
                 String locString = location.getName();
             }
-        });
+        });*/
 
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 

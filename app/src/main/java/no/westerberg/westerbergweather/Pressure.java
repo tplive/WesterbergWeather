@@ -1,5 +1,6 @@
 package no.westerberg.westerbergweather;
 
+import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Root;
 
 /**
@@ -9,14 +10,25 @@ import org.simpleframework.xml.Root;
 @Root(strict=false)
 public class Pressure {
 
-    private double pressure;
+    @Attribute
+    private String unit;
+    @Attribute
+    private double value;
 
-    public double getPressure() {
-        return Math.round(pressure); //XML formatet krever at vi runder av verdien for å vise den.
+    public String getUnit() {
+        return unit;
     }
 
-    public void setPressure(double pressure) {
-        this.pressure = pressure;
+    public double getValue() {
+        return Math.round(value); // Yr krever at vi runder av verdien før visning.
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+
+    public void setValue(double value) {
+        this.value = value;
     }
 }
 

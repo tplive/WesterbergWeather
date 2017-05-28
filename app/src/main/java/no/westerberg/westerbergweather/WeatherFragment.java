@@ -58,7 +58,7 @@ public class WeatherFragment extends Fragment {
 
                 renderWeather2(output);
             }
-        }).execute("http://www.yr.no/sted/Norge/Telemark/Sauherad/Gvarv/varsel.xml");
+        }).execute("http://www.yr.no/sted/Norge/Nordland/Rana/Mo_i_Rana/varsel.xml");
 
 
     }
@@ -93,8 +93,20 @@ public class WeatherFragment extends Fragment {
 
     private void renderWeather2(WeatherData weather) {
 
-        cityField.setText((CharSequence) weather.getLocation().getLocation().toString().toUpperCase(Locale.getDefault()) +
-                ", " + weather.getLocation().getCountry().toUpperCase(Locale.getDefault()));
+        String strCity = String.format(Locale.getDefault(), "%s, %s",
+                weather.getLocation().getName().toUpperCase(Locale.getDefault()),
+                weather.getLocation().getCountry().toUpperCase(Locale.getDefault()));
+        String strTemperature = String.format(Locale.getDefault(), "%s ˚C", weather.getForecast().getTimeList().get(0).getTemperature().getValue());
+        String strPressUnit = weather.getForecast().getTimeList().get(0).getPressure().getUnit();
+        double dblPressure = weather.getForecast().getTimeList().get(0).getPressure().getValue();
+        double dblWindspeed = weather.getForecast().getTimeList().get(0).getWindSpeed().getMps();
+        String strWindName = weather.getForecast().getTimeList().get(0).getWindDirection().getName();
+        String strWeatherName = weather.getForecast().getTimeList().get(0).getSymbol().getName();
+        cityField.setText(strCity);
+        currentTemperatureField.setText(strTemperature);
+        detailsField.setText( String.format(Locale.getDefault(),
+                "%s \n Lufttrykk: %s %s \n Vind: %s m/s %s", strWeatherName, dblPressure, strPressUnit, dblWindspeed, strWindName));
+
 
         //TODO Will render WeatherData object from Yr in the same way as the OWM version
 
