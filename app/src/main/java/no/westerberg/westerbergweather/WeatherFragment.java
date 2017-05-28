@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -48,6 +49,9 @@ public class WeatherFragment extends Fragment {
         //updateWeatherData(new CityPreference(getActivity()).getCity());
 
         // https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
+
+        searchCityNameYr("Oslo");
+
         new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
 
             @Override
@@ -64,7 +68,7 @@ public class WeatherFragment extends Fragment {
     }
 
 
-    private void updateWeatherData(final String city) {
+/*    private void updateWeatherData(final String city) {
         //TODO: Make updateWeatherData get data from Yr.
         new Thread(){
             public void run() {
@@ -83,6 +87,33 @@ public class WeatherFragment extends Fragment {
                         @Override
                         public void run() {
                             renderWeather(json);
+                        }
+                    });
+                }
+            }
+        }.start();
+
+    }*/
+
+    private void searchCityNameYr(final String city) {
+
+        new Thread(){
+            public void run() {
+                final JSONArray json = RemoteFetch.getJSON(getActivity(), city);
+                if (json == null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(getActivity(),
+                                    getActivity().getString(R.string.place_not_found),
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            getCityNameFromYr(json);
                         }
                     });
                 }
@@ -113,9 +144,17 @@ public class WeatherFragment extends Fragment {
 
     }
 
-    private void renderWeather(JSONObject json) {
+    private void getCityNameFromYr(JSONArray json) {
         //TODO: Need another method to render weather from Yr. Or class to convert to JSON
         try{
+            String cityURL = json.getJSONArray(1).getJSONArray(0).get(1).toString();
+
+            cityURL = "http://www.yr.no" + cityURL + "varsel.xml";
+            Log.i("JSON", cityURL);
+
+
+/*
+
             cityField.setText(json.getString("name").toUpperCase(Locale.getDefault()) +
             ", " + json.getJSONObject("sys").getString("country"));
 
@@ -137,9 +176,11 @@ public class WeatherFragment extends Fragment {
             setWeatherIcon(details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise") * 1000,
                     json.getJSONObject("sys").getLong("sunset") * 1000);
+*/
 
         }catch (Exception e) {
-            Log.e("SimpleWeather", "One or more fields not found in the JSON data");
+            Log.e("JSON", "One or more fields not found in the JSON data");
+            e.printStackTrace();
         }
     }
 
@@ -174,7 +215,7 @@ public class WeatherFragment extends Fragment {
     }
 
     public void changeCity(String city) {
-        updateWeatherData(city);
+        searchCityNameYr(city);
     }
 
     @Override

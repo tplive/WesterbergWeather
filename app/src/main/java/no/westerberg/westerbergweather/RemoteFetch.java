@@ -2,6 +2,7 @@ package no.westerberg.westerbergweather;
 
 import android.content.Context;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -16,14 +17,13 @@ import java.net.URL;
 class RemoteFetch {
 
     private final static String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
+    private final static String YR_WEBSOK_URL = "http://www.yr.no/_/websvc/jsonforslagsboks.aspx?s=%s";
 
-    public static JSONObject getJSON(Context context, String city) {
+    public static JSONArray getJSON(Context context, String city) {
 
         try {
-            URL url = new URL(String.format(OPEN_WEATHER_MAP_API, city));
+            URL url = new URL(String.format(YR_WEBSOK_URL, city));
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
-
-            connection.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
@@ -34,12 +34,10 @@ class RemoteFetch {
             }
             reader.close();
 
-            JSONObject data = new JSONObject(json.toString());
+            JSONArray data = new JSONArray(json.toString());
 
             // 404 hvis ikke suksess
-            if(data.getInt("cod") != 200) {
-                return null;
-            }
+            //TODO Test om ikke suksess. Return null hvis feil.
 
             return data;
 
