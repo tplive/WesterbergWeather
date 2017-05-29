@@ -126,13 +126,11 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
         }
 
-        //TODO Get weather at current position
-        //TODO Add current address to searchbox
 
         searchBox = (EditText)findViewById(R.id.searchBox);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
 
-        searchBox.setText(currentCity);
+        //searchBox.setText(currentCity);
         //changeCity(currentCity);
 
         searchBtn.setOnClickListener(

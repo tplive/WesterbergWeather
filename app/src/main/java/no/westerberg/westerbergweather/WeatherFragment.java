@@ -44,16 +44,18 @@ public class WeatherFragment extends Fragment {
         super.onCreate(savedInstanceState);
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
 
+        String currentCity = ((MainActivity)getActivity()).getCurrentCity();
+
+        searchCityNameYr(currentCity);
+
         updateWeatherData(new CityPreference(getActivity()).getCity());
 
         // https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
 
 
-        String currentCity = ((MainActivity)getActivity()).getCurrentCity();
 
-        searchCityNameYr(currentCity);
 
-        new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
+        /*new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
 
             @Override
             public void processFinished(WeatherData output) {
@@ -69,7 +71,7 @@ public class WeatherFragment extends Fragment {
                 }
             }
         }).execute(new CityPreference(getActivity()).getCityURL());
-
+*/
 
     }
 
