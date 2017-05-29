@@ -32,6 +32,10 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     LocationListener mLocationListener;
     String currentCity = "Unknown city";
 
+    public String getCurrentCity() {
+        return currentCity;
+    }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -104,9 +108,19 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
             // Last known location
             Location lastKnownLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+            double lat;
+            double lon;
+            if (lastKnownLocation != null) {
+                lat = lastKnownLocation.getLatitude();
+                lon = lastKnownLocation.getLongitude();
+            }else {
+                Log.d("Position", "lastKnownLocation is null");
+                lat = 1.00;
+                lon = 50.00;
+            }
 
             // Get address (City) from position
-            currentCity = getAddressFromLocation(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
+            currentCity = getAddressFromLocation(lat, lon);
 
             Toast.makeText(this, "Current city: " + currentCity, Toast.LENGTH_SHORT).show();
 
@@ -135,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     private String getAddressFromLocation(double lat, double lon) {
 
-        String city = "Unknown city";
+        String city = "Unknown city (getAddressFromLocation)";
 
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
@@ -167,6 +181,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     @Override
     public void onFragmentInteraction(Uri uri) {
+
         Log.d(TAG, "onFragmentInteraction");
     }
 
