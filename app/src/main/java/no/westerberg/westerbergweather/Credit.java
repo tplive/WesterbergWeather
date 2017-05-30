@@ -8,7 +8,7 @@ import java.net.URL;
 
 /**
  * Created by Thomas Qvidahl on 03.05.2017.
- * For obligatorisk visning av link i appen.
+ * For obligatorisk (kreves av YR) visning av link i appen.
  */
 @Root(strict=false)
 public class Credit {

@@ -18,10 +18,12 @@ class WeatherData {
     private Credit credit;
 
     public Forecast getForecast() {
+
         return forecast;
     }
 
     public void setForecast(Forecast forecast) {
+
         this.forecast = forecast;
     }
 

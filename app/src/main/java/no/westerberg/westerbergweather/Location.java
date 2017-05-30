@@ -17,7 +17,7 @@ class Location {
     @Element(required = false)
     private String country;
     @Element(required = false)
-    private String location; // TODO This will be a stringified geolocation lat/long ex "59.940 10.723"
+    private String location;
 
     public String getName() { return name; }
     public String getType() { return type;  }

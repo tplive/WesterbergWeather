@@ -15,10 +15,12 @@ public class Text {
     List<Time> timeList;
 
     public List<Time> getTimeList() {
+
         return timeList;
     }
 
     public void setTimeList(List<Time> timeList) {
+
         this.timeList = timeList;
     }
 }

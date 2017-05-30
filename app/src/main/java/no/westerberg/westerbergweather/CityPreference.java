@@ -9,6 +9,8 @@ import android.content.SharedPreferences;
 
 public class CityPreference {
 
+    // SharedPreferences lagrer konfigurasjonsdata til fil
+    //TODO Bygg ut klassen til å håndtere søkelogg.
     SharedPreferences prefs;
 
     public CityPreference(Activity activity) {

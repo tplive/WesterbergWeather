@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 public class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
 
+    // Asynkron funksjon som henter data fra yr.no
     public interface AsyncResponse {
         void processFinished(WeatherData output);
     }
@@ -42,6 +43,7 @@ public class GetWeatherDataFromYr extends AsyncTask<String, Void, WeatherData> {
 
             WeatherData weatherData = responseEntity.getBody();
 
+            // Returnere komplett WeatherData objekt.
             return weatherData;
 
         } catch (Exception e) {

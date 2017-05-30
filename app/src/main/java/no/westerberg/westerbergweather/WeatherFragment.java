@@ -27,7 +27,6 @@ public class WeatherFragment extends Fragment {
     TextView detailsField;
     TextView currentTemperatureField;
     TextView weatherIcon;
-    String yrURL = "";
 
     Handler handler;
 
@@ -42,46 +41,35 @@ public class WeatherFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // TODO: Mapping av Yr sine værbeskrivelser til weatherFont. Yr sin symbolside er nede! :O
+/*        404 Not Found
+        The domain om.yr.no was not found on this server.
+
+                All websites earlier on this server have been moved to a new server address.
+
+                All website administrators have been notified by email about this change on the 11th of May, and reminded on 16th of May.*/
+
         weatherFont = Typeface.createFromAsset(getActivity().getAssets(), "fonts/weathericons-regular-webfont.ttf");
 
+        // Hent currentCity fra MainActivity
         String currentCity = ((MainActivity)getActivity()).getCurrentCity();
 
+        // Søk på Yr etter URL til currentCity
         searchCityNameYr(currentCity);
 
+        // Oppdater værdata med currentCity fra preferences
         updateWeatherData(new CityPreference(getActivity()).getCity());
 
+        // Kilde brukt underveis
         // https://stackoverflow.com/questions/12575068/how-to-get-the-result-of-onpostexecute-to-main-activity-because-asynctask-is-a
 
 
-
-
-        /*new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
-
-            @Override
-            public void processFinished(WeatherData output) {
-
-                //Location location = output.getLocation();
-                //String locString = location.getName();
-
-                if (output != null) {
-                    renderWeather2(output);
-                }else{
-                    Log.d("WeatherData", "No data");
-                    Toast.makeText(getActivity(), "No weatherdata object :(", Toast.LENGTH_SHORT).show();
-                }
-            }
-        }).execute(new CityPreference(getActivity()).getCityURL());
-*/
-
     }
-
 
     private void updateWeatherData(final String city) {
 
-
-        //searchCityNameYr(city);
-
-
+        // Starte async task for å hente værdata fra Yr
         new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
 
             @Override
@@ -89,10 +77,13 @@ public class WeatherFragment extends Fragment {
 
 
                 try{
+                    // Finn bynavn fra værdataobjektet
                     Location location = output.getLocation();
                     String locString = location.getName();
                     Log.d("Location", locString);
 
+                    // Send værdata til renderWeather
+                    //TODO Rename metoden til renderWeather (erstatter OWM sin metode)
                     renderWeather2(output);
                 }catch (Exception e) {
                     Log.d("Location", "Output object empty");
@@ -101,35 +92,11 @@ public class WeatherFragment extends Fragment {
             }
         }).execute(new CityPreference(getActivity()).getCityURL());
 
-
-        //TODO: Make updateWeatherData get data from Yr.
-        /*new Thread(){
-            public void run() {
-                final JSONObject json = RemoteFetch.getJSON(getActivity(), city);
-                if (json == null) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(getActivity(),
-                                    getActivity().getString(R.string.place_not_found),
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            renderWeather(json);
-                        }
-                    });
-                }
-            }
-        }.start();
-*/
     }
 
     private void searchCityNameYr(final String city) {
 
+        // Gjør et async søk (returnerer JSON array) etter bynavn og bygger Yr-URL for å hente værdata
         new Thread(){
             public void run() {
                 final JSONArray json = RemoteFetch.getJSON(getActivity(), city);
@@ -146,6 +113,7 @@ public class WeatherFragment extends Fragment {
                         @Override
                         public void run() {
 
+                            // Sett city URL i preferences.
                             new CityPreference(getActivity()).setCityURL(getCityURLFromJSON(json));
                             updateWeatherData(new CityPreference(getActivity()).getCity());
                         }
@@ -157,6 +125,8 @@ public class WeatherFragment extends Fragment {
     }
 
     private void renderWeather2(WeatherData weather) {
+
+        // Oppdatere UI med værdata fra Yr
 
         String strCity = String.format(Locale.getDefault(), "%s, %s",
                 weather.getLocation().getName().toUpperCase(Locale.getDefault()),
@@ -172,48 +142,24 @@ public class WeatherFragment extends Fragment {
         detailsField.setText( String.format(Locale.getDefault(),
                 "%s \n Lufttrykk: %s %s \n Vind: %s m/s %s", strWeatherName, dblPressure, strPressUnit, dblWindspeed, strWindName));
 
-
-        //TODO Will render WeatherData object from Yr in the same way as the OWM version
-
-
     }
 
     private String getCityURLFromJSON(JSONArray json) {
-        //TODO: Need another method to render weather from Yr. Or class to convert to JSON
+
+        // Med JSON data fra Yr, hent ut det første stedet og lag en gyldig værdata URL
+        // TODO Ta alle search-suggestions og send fortløpende til UI, la bruker velge mellom alle treff.
         try{
             String cityURL = json.getJSONArray(1).getJSONArray(0).get(1).toString();
 
             cityURL = "http://www.yr.no" + cityURL + "varsel.xml";
             Log.i("JSON", cityURL);
 
-
             return cityURL;
-/*
-
-            cityField.setText(json.getString("name").toUpperCase(Locale.getDefault()) +
-            ", " + json.getJSONObject("sys").getString("country"));
-
-            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-            JSONObject main = json.getJSONObject("main");
-            detailsField.setText(
-                    details.getString("description").toUpperCase(Locale.getDefault()) +
-                            "\n" + "Humidity: " + main.getString("humidity") + "%" +
-                            "\n" + "Pressure: " + main.getString("pressure") + "hPa"
-            );
-
-            currentTemperatureField.setText(
-                    String.format("%.2f", main.getDouble("temp")) + "˚C");
-
-            DateFormat df = DateFormat.getDateInstance();
-            String updatedOn = df.format(new Date(json.getLong("dt")*1000));
-            updatedField.setText("Last updated: " + updatedOn);
-
-            setWeatherIcon(details.getInt("id"),
-                    json.getJSONObject("sys").getLong("sunrise") * 1000,
-                    json.getJSONObject("sys").getLong("sunset") * 1000);
-*/
 
         }catch (Exception e) {
+            // Hvis bruker søker etter et sted som ikke finnes, blir det krøll.
+            // TODO Gi en bedre melding til bruker om at søket ikke finnes.
+
             Log.e("JSON", "One or more fields not found in the JSON data: " + json.toString());
             e.printStackTrace();
             return null;
@@ -222,6 +168,8 @@ public class WeatherFragment extends Fragment {
 
     private void setWeatherIcon(int actualId, long sunrise, long sunset) {
 
+
+        //TODO Skriv om metoden så den mapper Yr sine værikoner til weatherFont ikonene.
         int id = actualId / 100;
         String icon = "";
         if (actualId==800) {
@@ -252,6 +200,7 @@ public class WeatherFragment extends Fragment {
 
     public void changeCity(String city) {
 
+        // Bytt by, lagrer i SharedPrefs
         searchCityNameYr(city);
     }
 

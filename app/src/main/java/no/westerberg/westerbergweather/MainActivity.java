@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     String currentCity = "Unknown city";
 
     public String getCurrentCity() {
+        // Returnere currentCity, brukes av WeatherFragment
         return currentCity;
     }
 
@@ -51,7 +52,9 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         }
     }
 
+    //Ved forespørsel om rettigheter, brukes for å tillate Location
     private final static String TAG = "MainActivity";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Log.d(TAG, "onCreate");
@@ -64,22 +67,15 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
                     .commit();
         }
 
-/*        new GetWeatherDataFromYr(new GetWeatherDataFromYr.AsyncResponse() {
-
-            @Override
-            public void processFinished(WeatherData output) {
-
-                no.westerberg.westerbergweather.Location location = output.getLocation();
-                String locString = location.getName();
-            }
-        });*/
-
+        // Henter lokasjonstjeneste
         mLocationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
+        // Setter opp listener på lokasjon
         mLocationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
 
+                Log.i(TAG, "Location changed..");
             }
 
             @Override
@@ -98,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
             }
         };
 
+        // Sjekk om vi har rettigheter til å bruke "fine location"
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
@@ -108,12 +105,14 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
             // Last known location
             Location lastKnownLocation = mLocationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
+            // Sjekke at vi har en lastKnownLocation som kan brukes
             double lat;
             double lon;
             if (lastKnownLocation != null) {
                 lat = lastKnownLocation.getLatitude();
                 lon = lastKnownLocation.getLongitude();
             }else {
+                // Hvis ikke, sett bogus koordinater
                 Log.d("Position", "lastKnownLocation is null");
                 lat = 1.00;
                 lon = 50.00;
@@ -130,9 +129,6 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         searchBox = (EditText)findViewById(R.id.searchBox);
         searchBtn = (ImageButton)findViewById(R.id.searchBtn);
 
-        //searchBox.setText(currentCity);
-        //changeCity(currentCity);
-
         searchBtn.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
@@ -147,12 +143,14 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     private String getAddressFromLocation(double lat, double lon) {
 
+        // For testing, sett tydelig feil by i UI (og hvor den kommer fra)
         String city = "Unknown city (getAddressFromLocation)";
 
+        // Start geocoder for å finne navn fra posisjon
         Geocoder geocoder = new Geocoder(getApplicationContext(), Locale.getDefault());
 
-        // Vil ha bynavn fra Locality. Men Locality returnerer ofte "null". Derfor henter vi 10 resultater fra posisjonen
-        // Og looper gjennom dem og tar det første som ikke er null.
+        // Vi vil ha bynavn fra Locality. Men Locality returnerer ofte "null". Derfor henter vi 10 resultater fra posisjonen
+        // og looper gjennom dem og tar det første som ikke er null. Hacky fun! :D
 
         try {
             List<Address> addresses = geocoder.getFromLocation(lat, lon, 10);
@@ -180,6 +178,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     @Override
     public void onFragmentInteraction(Uri uri) {
 
+        //TODO Ved klikk i fragment, hent opp langtidsvarsel for stedet
         Log.d(TAG, "onFragmentInteraction");
     }
 
