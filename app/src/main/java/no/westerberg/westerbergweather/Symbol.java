@@ -13,6 +13,8 @@ public class Symbol {
     @Attribute
     int number;
     @Attribute
+    int numberEx;
+    @Attribute
     String name;
     @Attribute
     String var;
@@ -39,5 +41,13 @@ public class Symbol {
 
     public void setVar(String var) {
         this.var = var;
+    }
+
+    public int getNumberEx() {
+        return numberEx;
+    }
+
+    public void setNumberEx(int numberEx) {
+        this.numberEx = numberEx;
     }
 }

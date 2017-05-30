@@ -137,11 +137,15 @@ public class WeatherFragment extends Fragment {
         double dblWindspeed = weather.getForecast().getTimeList().get(0).getWindSpeed().getMps();
         String strWindName = weather.getForecast().getTimeList().get(0).getWindDirection().getName();
         String strWeatherName = weather.getForecast().getTimeList().get(0).getSymbol().getName();
+        int intNumberEx = weather.getForecast().getTimeList().get(0).getSymbol().getNumberEx();
+        String strLastUpdate = weather.getMeta().getLastupdate();
+
         cityField.setText(strCity);
         currentTemperatureField.setText(strTemperature);
         detailsField.setText( String.format(Locale.getDefault(),
                 "%s \n Lufttrykk: %s %s \n Vind: %s m/s %s", strWeatherName, dblPressure, strPressUnit, dblWindspeed, strWindName));
-
+        setWeatherIcon(intNumberEx);
+        updatedField.setText(strLastUpdate);
     }
 
     private String getCityURLFromJSON(JSONArray json) {
@@ -166,35 +170,68 @@ public class WeatherFragment extends Fragment {
         }
     }
 
-    private void setWeatherIcon(int actualId, long sunrise, long sunset) {
+    private void setWeatherIcon(int numberEx) {
 
 
         //TODO Skriv om metoden så den mapper Yr sine værikoner til weatherFont ikonene.
-        int id = actualId / 100;
+
         String icon = "";
-        if (actualId==800) {
-            long currentTime = new Date().getTime();
-            if(currentTime>=sunrise && currentTime<sunset) {
-                icon = getActivity().getString(R.string.weather_sunny);
-            }else {
-                icon = getActivity().getString(R.string.weather_clear_night);
-            }
-        }else {
-            switch(id) {
-                case 2 : icon = getActivity().getString(R.string.weather_thunder);
-                    break;
-                case 3 : icon = getActivity().getString(R.string.weather_drizzle);
-                    break;
-                case 7 : icon = getActivity().getString(R.string.weather_foggy);
-                    break;
-                case 8 : icon = getActivity().getString(R.string.weather_cloudy);
-                    break;
-                case 6 : icon = getActivity().getString(R.string.weather_snowy);
-                    break;
-                case 5 : icon = getActivity().getString(R.string.weather_rainy);
-                    break;
-            }
+/*      Så langt har vi identifisert følgende symboler i Yr sin melding:
+        (Sidene med symbolforklaring er utilgjengelig, dette er gjort manuelt. Rom
+        for forbedring, siden fonten vi bruker har noe begrenset antall ikoner.. ;)
+        1 Klarvær
+        2 Lettskyet
+        3 Delvis skyet
+        4 Skyet
+        5 Regnbyger
+        8 Snøbyger
+        9 Regn
+        10 Kraftig regn
+        13 Snø
+        15 Tåke
+        40 Lette regnbyger
+        41 Kraftige regnbyger
+        44 Lette snøbyger
+        46 Lett regn
+        49 Lett snø
+        50 Kraftig snø
+*/
+        switch(numberEx) {
+            case 1 : icon = getActivity().getString(R.string.weather_sunny);
+                break;
+            case 2 : icon = getActivity().getString(R.string.weather_cloudy);
+                break;
+            case 3 : icon = getActivity().getString(R.string.weather_cloudy);
+                break;
+            case 4 : icon = getActivity().getString(R.string.weather_cloudy);
+                break;
+            case 5 : icon = getActivity().getString(R.string.weather_rainy);
+                break;
+            case 8 : icon = getActivity().getString(R.string.weather_snowy);
+                break;
+            case 9 : icon = getActivity().getString(R.string.weather_rainy);
+                break;
+            case 10 : icon = getActivity().getString(R.string.weather_rainy);
+                break;
+            case 13 : icon = getActivity().getString(R.string.weather_snowy);
+                break;
+            case 15 : icon = getActivity().getString(R.string.weather_foggy);
+                break;
+            case 40 : icon = getActivity().getString(R.string.weather_rainy);
+                break;
+            case 41 : icon = getActivity().getString(R.string.weather_rainy);
+                break;
+            case 44 : icon = getActivity().getString(R.string.weather_snowy);
+                break;
+            case 46 : icon = getActivity().getString(R.string.weather_rainy);
+                break;
+            case 49 : icon = getActivity().getString(R.string.weather_snowy);
+                break;
+            case 50 : icon = getActivity().getString(R.string.weather_snowy);
+                break;
+            default : icon = getActivity().getString(R.string.weather_aliens);
         }
+
         weatherIcon.setText(icon);
     }
 
