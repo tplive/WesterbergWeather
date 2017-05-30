@@ -172,9 +172,6 @@ public class WeatherFragment extends Fragment {
 
     private void setWeatherIcon(int numberEx) {
 
-
-        //TODO Skriv om metoden så den mapper Yr sine værikoner til weatherFont ikonene.
-
         String icon = "";
 /*      Så langt har vi identifisert følgende symboler i Yr sin melding:
         (Sidene med symbolforklaring er utilgjengelig, dette er gjort manuelt. Rom
